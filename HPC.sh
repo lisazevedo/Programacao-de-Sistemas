@@ -37,6 +37,6 @@ rm info.txt
 # -- INFORMACOES DA GPU --
 echo -e "GPU: \n" > info.txt
 nvidia-smi >> info.txt
-
+dialog --title 'Informações do Sistema' --textbox info.txt 0 0
 
 clear
