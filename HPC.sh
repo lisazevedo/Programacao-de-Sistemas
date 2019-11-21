@@ -50,7 +50,7 @@ rm info.txt ;;
 5)
 # -- INFORMACOES DA GPU 
 echo -e "GPUs instaladas:\n" > info.txt
-echo -e `lshw -numeric -C display | grep vendor` >> info.txt
+sudo lshw -numeric -C display | grep product >> info.txt
 dialog --title 'Informações do Sistema' --textbox info.txt 0 0
 echo -e "GPU Nvidia: \n" > info.txt 
 nvidia-smi >> info.txt 
