@@ -1,7 +1,7 @@
 #!/bin/bash
 # sudo apt install -y nload dialog
 while(:;) do
-SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "CPU"  2 "Ram" 3 "HD" 4 "Barramento" 5 "GPU" 6 "Tráfego")
+SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "CPU"  2 "Ram" 3 "HD" 4 "Barramento" 5 "GPU" 6 "Tráfego" 7 "Interfaces de Rede rastreáveis")
 # [$? -ne 0 && break]
 case "$SELECAO" in
 1)
@@ -50,7 +50,7 @@ rm info.txt ;;
 5)
 # -- INFORMACOES DA GPU 
 echo -e "GPUs instaladas:\n" > info.txt
-sudo lshw -numeric -C display | grep product >> info.txt
+sudo lshw -numeric -C display | grep product > info.txt
 dialog --title 'Informações do Sistema' --textbox info.txt 0 0
 echo -e "GPU Nvidia: \n" > info.txt 
 nvidia-smi >> info.txt 
@@ -59,6 +59,13 @@ rm info.txt;;
 6)
 # INFORMAÇÕES DE TRAFEGO DE REDE
 nload -m
+;;
+7)
+ifconfig > info.txt
+dialog --title 'Interfaces de Rede - Escolha uma para rastrear' --textbox info.txt 0 0
+network_interface=$( dialog --inputbox --stdout 'Digite a interface de rede a ser rastreada:' 0 0  )
+clear
+sudo tcpdump -i $network_interface
 ;;
 esac
 clear
