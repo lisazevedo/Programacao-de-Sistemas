@@ -1,7 +1,8 @@
 #!/bin/bash
+# sudo apt install -y nload dialog
 while(:;) do
-SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "CPU"  2 "Ram" 3 "HD" 4 "Barramento" 5 "GPU")
-[$? -ne 0 ] && break]
+SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "CPU"  2 "Ram" 3 "HD" 4 "Barramento" 5 "GPU" 6 "Tráfego")
+# [$? -ne 0 && break]
 case "$SELECAO" in
 1)
 #  -- INFORMAÇÃO DA CPU --
@@ -54,8 +55,11 @@ dialog --title 'Informações do Sistema' --textbox info.txt 0 0
 echo -e "GPU Nvidia: \n" > info.txt 
 nvidia-smi >> info.txt 
 dialog --title 'Informações do Sistema' --textbox info.txt 0 0
-
 rm info.txt;;
+6)
+# INFORMAÇÕES DE TRAFEGO DE REDE
+nload -m
+;;
 esac
 clear
 done
