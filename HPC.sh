@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt install -y nload dialog
 while(:;) do
-	OPCAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a opcao desejada' 0 0 0 1 "informações do sistema" 2 "firewall")
+	OPCAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a opcao desejada' 0 0 0 1 "Informações do Sistema" 2 "Firewall" 3 "Proxy")
 	case "$OPCAO" in
 	1)
 	#Inicio informações do sistema
@@ -148,6 +148,32 @@ while(:;) do
 		done
 		;;
 	#Fim FIrewall
+	3)
+	#Inicio Proxy
+		while(:;) do
+		SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "Bloquear Site"  2 "Limpar Sites Bloqueados")
+		case "$SELECAO" in
+		1)
+			bloc_site=$(dialog --inputbox --stdout 'Digite o Site que deseja bloquear no modelo > .blockedsite.com:' 0 0 )
+		#	block_site >> inserir aqui arquivo dos sites bloqueados  FUNÇÃO QUE DETERMINA OS SITES BLOQUEADOS
+			dialog 'AVISO' --infobox 'Espere alguns minutos para a aplicaçao das regras' 0 0
+			sleep 3
+			sudo systemctl restart squid #restarta o squid para aplicação das regras
+			;;
+		2)
+		#       "" >> inserir aqui arquivo dos sites bloqueados  FUNÇÃO QUE DETERMINA OS SITES BLOQUEADOS
+                	dialog --title 'AVISO' --infobox 'Espere alguns minutos para a aplicaçao das regras' 0 0
+			sleep 3       
+	       		sudo systemctl restart squid #restarta o squid para aplicação das regras
+			
+
+
+			;;
+		esac
+
+	#Fim Proxy
+	done
+	;;
 		
 	esac
 
