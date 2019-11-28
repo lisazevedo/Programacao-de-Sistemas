@@ -96,8 +96,15 @@ while(:;) do
 		0)
 			break;;
 		1)
-			echo -e "Regras de Firewall implementadas " > info.txt
+			echo -e "Regras de Firewall implementadas:" > info.txt
+			echo -e "-------------------------------------------------------------------------" >> info.txt
 			iptables -L >> info.txt
+			echo -e "-------------------------------------------------------------------------" >> info.txt
+			echo -e "Regras implementadas na tabela NAT:" >> info.txt
+			echo -e "-------------------------------------------------------------------------" >> info.txt
+			iptables -L -n -t  nat >> info.txt
+			echo -e "-------------------------------------------------------------------------" >> info.txt
+
 			dialog --title 'Firewall' --textbox info.txt 0 0
 			rm info.txt
 			;;
