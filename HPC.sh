@@ -68,7 +68,7 @@ while(:;) do
 			nload -m
 			;;
 		7)
-			ifconfig > info.txt
+			ls /sys/class/net  > info.txt
 			dialog --title 'Interfaces de Rede - Escolha uma para rastrear' --textbox info.txt 0 0
 			network_interface=$( dialog --inputbox --stdout 'Digite a interface de rede a ser rastreada:' 0 0  )
 			clear
