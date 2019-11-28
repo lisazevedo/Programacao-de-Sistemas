@@ -149,25 +149,19 @@ while(:;) do
 	3)
 	#Inicio Proxy
 		while(:;) do
-		ip route | grep default > info.txt
-		dialog --title 'Gateway padrao' --textbox info.txt 0 0
-		gate=$(dialog --inputbox --stdout 'Digite o seu gateway:' 0 0 )
-		dialog --title 'AVISO' --infobox 'A porta 80 sera redirecionada para a porta 3128 para uso do proxy transparente' 0 0
-		sudo iptables -t nat -A PREROUTING -s $gate -p tcp --dport 80 -j REDIRECT --to-port 3128
-		sleep 3
-		sudo service squid start
+		sudo systemctl start squid
 		SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "Bloquear Site"  2 "Limpar Sites Bloqueados")
 		case "$SELECAO" in
 		1)
 			block_site=$(dialog --inputbox --stdout 'Digite o Site que deseja bloquear no modelo > .blockedsite.com:' 0 0 )
 			echo $block_site >> blocked_sites
-			dialog 'AVISO' --infobox 'Espere alguns minutos para a aplicaçao das regras' 0 0
+			dialog --title 'AVISO' --infobox 'Espere alguns segundos para a aplicaçao das regras' 0 0
 			sleep 3
 			sudo systemctl restart squid #restarta o squid para aplicação das regras
 			;;
 		2)
-		#       "" >> inserir aqui arquivo dos sites bloqueados  FUNÇÃO QUE DETERMINA OS SITES BLOQUEADOS
-			dialog --title 'AVISO' --infobox 'Espere alguns minutos para a aplicaçao das regras' 0 0
+			dialog --title 'AVISO' --infobox 'Espere alguns segundos para a aplicaçao das regras' 0 0
+			> blocked_sites
 			sleep 3       
 			sudo systemctl restart squid #restarta o squid para aplicação das regras
 			;;
