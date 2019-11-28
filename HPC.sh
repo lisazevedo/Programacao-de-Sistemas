@@ -46,13 +46,10 @@ while(:;) do
 		# -- INFORMACOES DO BARRAMENTO --
 		4)
 			echo -e "Barramento PCI: \n" > info.txt 
-			lspci >> info.txt # informação dos barramentos pci e todos os dispositivos plugados a ele.
+			lspci | grep 3D >> info.txt # informação dos barramentos pci e todos os dispositivos plugados a ele.
 			dialog --title 'Informações do Sistema' --textbox info.txt 0 0 
 			echo -e "Barramento USB: \n" > info.txt 
 			lsusb >> info.txt # informação dos barramentos usb e todos os dispositivos plugados a ele.
-			dialog --title 'Informações do Sistema' --textbox info.txt 0 0 
-			echo -e "Barramento Modular: \n" > info.txt 
-			lsmod >> info.txt # informação dos barramentos modulo e todos os dispositivos plugados a ele.
 			dialog --title 'Informações do Sistema' --textbox info.txt 0 0
 			rm info.txt 
 			;;
@@ -161,7 +158,7 @@ while(:;) do
 		SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "Bloquear Site"  2 "Limpar Sites Bloqueados")
 		case "$SELECAO" in
 		1)
-			bloc_site=$(dialog --inputbox --stdout 'Digite o Site que deseja bloquear no modelo > .blockedsite.com:' 0 0 )
+			block_site=$(dialog --inputbox --stdout 'Digite o Site que deseja bloquear no modelo > .blockedsite.com:' 0 0 )
 		#	block_site >> inserir aqui arquivo dos sites bloqueados  FUNÇÃO QUE DETERMINA OS SITES BLOQUEADOS
 			dialog 'AVISO' --infobox 'Espere alguns minutos para a aplicaçao das regras' 0 0
 			sleep 3
