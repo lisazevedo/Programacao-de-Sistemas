@@ -150,7 +150,7 @@ while(:;) do
 	#Inicio Proxy
 		while(:;) do
 		sudo systemctl start squid
-		SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "Bloquear Site"  2 "Limpar Sites Bloqueados")
+		SELECAO=$(dialog --stdout --nocancel --title 'Menu' --menu 'Escolha a informacao desejada' 15 40 9 1 "Bloquear Site"  2 "Limpar Sites Bloqueados" 0 "Sair")
 		case "$SELECAO" in
 		1)
 			block_site=$(dialog --inputbox --stdout 'Digite o Site que deseja bloquear no modelo > .blockedsite.com:' 0 0 )
@@ -165,6 +165,8 @@ while(:;) do
 			sleep 3       
 			sudo systemctl restart squid #restarta o squid para aplicação das regras
 			;;
+		0)
+			sbreak;;
 		esac
 
 	#Fim Proxy
